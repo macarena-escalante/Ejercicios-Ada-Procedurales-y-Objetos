@@ -13,6 +13,13 @@ public class Temporada {
     public String nombre;
     public int anio;
 
+    public Temporada (String nombre){
+        this.nombre= nombre;
+    }
+    public Temporada(){
+
+    }
+
     public Episodio getNumeroEpisodio(int numero) {
         for (Episodio e : this.episodios) {
             if (numero == e.nroEpisodio)
