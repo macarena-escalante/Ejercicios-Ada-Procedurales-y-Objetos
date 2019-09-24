@@ -2,6 +2,10 @@ package ar.com.ada.billeteravirtual;
 
 import java.util.*;
 
+import org.hibernate.exception.ConstraintViolationException;
+
+import ar.com.ada.billeteravirtual.excepciones.PersonaEdadException;
+
 public class App {
 
     public static Scanner Teclado = new Scanner(System.in);
@@ -58,7 +62,7 @@ public class App {
 
     }
 
-    public static void alta() {
+    public static void alta() throws Exception {
         Persona p = new Persona();
         System.out.println("Ingrese el nombre:");
         p.setNombre(Teclado.nextLine());
@@ -84,19 +88,51 @@ public class App {
             u.setUserName(p.getEmail());
             System.out.println("Su nombre de usuario es " + u.getUserName());
             System.out.println("Ingrese su password:");
-            u.setPassword(Teclado.nextLine());
+
+            // La password ingresa en texto claro a la variable y luego se encripta
+            String passwordEnTextoClaro;
+            String passwordEncriptada;
+            String passwordEnTextoClaroDesencriptado;
+
+            passwordEnTextoClaro = Teclado.nextLine();
+
+            passwordEncriptada = passwordEnTextoClaro;// Crypto.encrypt(passwordEnTextoClaro, "shakalaka!!!");
+
+            passwordEnTextoClaroDesencriptado = passwordEnTextoClaro; // Crypto.decrypt(passwordEncriptada,
+                                                                      // "shakalaka!!!");
+
+            System.out.println("Tu password encriptada es :" + passwordEncriptada);
+
+            System.out.println("Tu password desencriptada es :" + passwordEnTextoClaroDesencriptado);
+
+            if (passwordEnTextoClaro.equals(passwordEnTextoClaroDesencriptado)) {
+                System.out.println("Ambas passwords coinciden");
+            } else {
+                System.out.println("Las passwords no coinciden, nunca debio entrar aqui");
+            }
+
+            u.setPassword(passwordEncriptada);
 
             /*
              * System.out.println("Su mail es:"); u.setUserEmail(p.getEmail());
              */
-            System.out.println("Ingrese su email de usuario:");
-            u.setUserEmail(Teclado.nextLine());
+            // System.out.println("Ingrese su email de usuario:");
+            u.setUserEmail(u.getUserName());
 
-            u.setPersonaId(p.getPesonaId());
-            ABMUsuario.create(u);
+            p.setUsuario(u);
+            /// u.setPersona(p); <- esta linea hariaa falta si no lo hacemos en el
+            /// p.SetUsuario(u)
+            // u.setPersonaId(p.getPesonaId());
+            // ABMUsuario.create(u);
 
-            System.out.println("Usuario generado con exito.  " + u);
+            // System.out.println("Usuario generado con exito. " + u);
         }
+
+        ABMPersona.create(p);
+
+        System.out.println("Persona generada con exito.  " + p);
+        if (p.getUsuario() != null)
+            System.out.println("Tambien se le creo un usuario: " + p.getUsuario().getUserName());
     }
 
     public static void baja() {
@@ -111,8 +147,20 @@ public class App {
             System.out.println("Persona no encontrada.");
 
         } else {
-            ABMPersona.delete(personaEncontrada);
-            System.out.println("El registro de " + personaEncontrada.getDni() + " ha sido eliminado.");
+
+            try {
+
+                ABMPersona.delete(personaEncontrada);
+                System.out.println("El registro de " + personaEncontrada.getDni() + " ha sido eliminado.");
+
+            } catch (ConstraintViolationException exPersonaConUsuario) {
+                System.out.println("No se puede eliminar una persona que tenga usuario");
+
+            } catch (Exception e) {
+                // TODO: handle exception
+                System.out.println("Ocurrio un error al eliminar una persona.Error: " + e.getCause());
+            }
+
         }
     }
 
@@ -132,7 +180,7 @@ public class App {
         }
     }
 
-    public static void modifica() {
+    public static void modifica() throws PersonaEdadException {
         // System.out.println("Ingrese el nombre de la persona a modificar:");
         // String n = Teclado.nextLine();
 
@@ -297,4 +345,6 @@ public class App {
         System.out.println("");
         System.out.println("=======================================");
     }
+
+   
 }

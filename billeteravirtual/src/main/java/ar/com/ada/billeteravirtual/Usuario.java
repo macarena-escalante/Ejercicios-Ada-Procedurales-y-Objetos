@@ -18,8 +18,14 @@ public class Usuario {
     private String password;
     @Column (name= "email")
     private String userEmail;
-    @Column(name = "persona_id")
-    private int personaId;
+    //@Column(name = "persona_id")
+    // private int personaId;
+
+    @OneToOne
+    @JoinColumn(name = "persona_id", referencedColumnName = "persona_id")
+    //@MapsId
+    private Persona persona;
+
 
     public Usuario (String userName, String password, String email){
         this.userName = userName;
@@ -73,7 +79,7 @@ public class Usuario {
         return "Usuario [User Name=" + userName + ", Password=" + password + ", User Email=" + userEmail + "]";
     }
 
-    public int getPersonaId() {
+    /*public int getPersonaId() {
         return personaId;
     }
 
@@ -85,7 +91,7 @@ public class Usuario {
         this.personaId = personaId;
     }
 
-    /*public String getEmail() {
+    public String getEmail() {
         return email;
     }
 
@@ -93,6 +99,13 @@ public class Usuario {
         this.email = email;
     }*/
 
+    public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
+    }
 
 
 }
