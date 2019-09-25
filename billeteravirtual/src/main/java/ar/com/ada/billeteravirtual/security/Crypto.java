@@ -1,4 +1,4 @@
-/*package ar.com.ada.billeteravirtual.security;
+package ar.com.ada.billeteravirtual.security;
 
 import java.security.spec.KeySpec;
 import java.util.Base64;
@@ -9,7 +9,7 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
-*/
+
 /**
  * Crypto
  * 
@@ -18,7 +18,7 @@ import javax.crypto.spec.SecretKeySpec;
  * responsabilidad. Basado en Source:
  * Con algunos
  * cambios
- *//*
+ */
 public class Crypto {
 
     // En la vida real, la secretKey estara guardada en algun lado en forma segura y
@@ -63,4 +63,4 @@ public class Crypto {
         }
         return null;
     }
-}*/
+}

@@ -102,4 +102,19 @@ public class Persona {
     public Usuario getUsuario() {
         return usuario;
     }
+/**
+     * @param billetera the usuario to set
+     */
+    
+    public void setBilletera(Billetera billetera){
+        this.billetera = billetera;
+        this.billetera.setPersona(this);
+    }
+
+    /**
+     * @return the usuario
+     */
+    public Billetera getBilletera() {
+        return billetera;
+    }
 }
