@@ -138,10 +138,10 @@ public class App {
 
         Movimiento m = new Movimiento();
         m.setImporte(100);
-        m.setDeUsuario_id(u.getUsuarioId());
-        m.setaUsuario_id(u.getUsuarioId());
-        m.setCuentaDestino_id(c.getCuenta_id());
-        m.setCuentaOrigen_id(c.getCuenta_id());
+        m.setDeUsuarioId(u.getUsuarioId());
+        m.setaUsuarioId(u.getUsuarioId());
+        m.setCuentaDestinoId(c.getCuentaId());
+        m.setCuentaOrigenId(c.getCuentaId());
         m.setConceptoDeOperacion("Envío");
         m.setTipoDeOperacion("Cargar dinero");
         m.setEstado(0);
@@ -155,10 +155,73 @@ public class App {
             System.out
                     .println("Tambien se le creo un usuario: " + p.getUsuario().getUserName() + " con una billetera.");
 
-        Billetera b2 = ABMBilletera.read(b.getBilletera_id());
+                    
+        Billetera b2 = ABMBilletera.read(b.getBilleteraId());
+        b=null;
+        c=null;
+
         System.out.println("El saldo es: " + b2.getCuentas().get(0).getSaldo());
 
-    }
+        /*
+         * enviarDinero();{
+         * System.out.println("Ingrese el email del usuario al que desea transferir:");
+         * String email = Teclado.nextLine(); Usuario user2 = ABMUsuario.read(email);
+         * 
+         * user2.getPersona().getBilletera();
+         */
+        System.out.println("Desea enviar dinero a otra cuenta?");
+        String rta;
+        rta = Teclado.nextLine();
+
+        if (rta.equals("si")) {
+
+            Billetera b3 = ABMBilletera.read(15);
+
+            Movimiento m2 = new Movimiento();
+            m2.setImporte(-50);
+            m2.setDeUsuarioId(u.getUsuarioId());
+            m2.setaUsuarioId(37);
+            m2.setCuentaOrigenId(b2.getCuentas().get(0).getCuentaId());
+            m2.setCuentaDestinoId(b3.getCuentas().get(0).getCuentaId());
+            m2.setConceptoDeOperacion("Envío");
+            m2.setTipoDeOperacion("Enviar dinero");
+            m2.setEstado(0);
+            m2.setFechaMovimiento(new Date());
+            b2.getCuentas().get(0).agregarMovimiento(m2);
+
+            //b3.getCuentas()
+
+            ABMBilletera.update(b2);
+
+            Movimiento m3 = new Movimiento ();
+            m3.setImporte(+50);
+            m3.setDeUsuarioId(u.getUsuarioId());
+            m3.setaUsuarioId(37);
+            m3.setCuentaOrigenId(b2.getCuentas().get(0).getCuentaId());
+            m3.setCuentaDestinoId(b3.getCuentas().get(0).getCuentaId());
+            m3.setConceptoDeOperacion("Recibo");
+            m3.setTipoDeOperacion("Recibir dinero");
+            m3.setEstado(0);
+            m3.setFechaMovimiento(new Date());
+            b3.getCuentas().get(0).agregarMovimiento(m3);
+
+            ABMBilletera.update(b3);
+            b3= ABMBilletera.read(b3.getBilleteraId());
+            System.out.println("El saldo de ID 11 es "+ b3.getCuentas().get(0).getSaldo());
+        }
+
+        System.out.println("Se enviaron $50 desde la cuenta "+ b2.getCuentas().get(0).getCuentaId()+ " a la cuenta ID 11." );
+
+        b2= ABMBilletera.read(b2.getBilleteraId());
+        System.out.println("El saldo de tu cuenta ahora es:" + b2.getCuentas().get(0).getSaldo());
+
+        
+
+
+        
+        }
+
+   
 
     public static void baja() {
         System.out.println("Ingrese el nombre:");

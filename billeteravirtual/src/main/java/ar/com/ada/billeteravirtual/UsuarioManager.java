@@ -142,4 +142,14 @@ public class UsuarioManager {
 
     }*/
 
+    /*protected Usuario readByEmail(String email) {
+        Session session = sessionFactory.openSession();
+
+        Query query = session.createNativeQuery("SELECT * FROM m", Persona.class);
+
+        List<Persona> todas = query.getResultList();
+
+        return todas;
+    }*/
+
 }

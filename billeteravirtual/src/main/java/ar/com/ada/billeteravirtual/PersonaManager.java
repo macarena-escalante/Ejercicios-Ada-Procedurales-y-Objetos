@@ -66,6 +66,8 @@ public class PersonaManager {
         return persona;
     }
 
+
+
     protected void update(Persona persona) {
 
         Session session = sessionFactory.openSession();
@@ -87,6 +89,8 @@ public class PersonaManager {
         session.getTransaction().commit();
         session.close();
     }
+
+    
 
 
     /**

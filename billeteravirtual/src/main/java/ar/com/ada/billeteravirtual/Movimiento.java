@@ -3,36 +3,43 @@ package ar.com.ada.billeteravirtual;
 import java.util.*;
 
 import javax.persistence.*;
+
 /**
  * Movimiento
  */
 @Entity
-@Table(name= "movimiento")
+@Table(name = "movimiento")
 public class Movimiento {
     @Id
+    @Column(name = "movimiento_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private int movimientoId;
+    @Column(name="fecha_movimiento")
     private Date fechaMovimiento;
-    //private Coordenada ubicacion;
+    // private Coordenada ubicacion;
     private double importe;
+    @Column(name= "tipo_de_operacion")
     private String tipoDeOperacion;
+    @Column(name="concepto_de_operacion")
     private String conceptoDeOperacion;
     private String detalle;
     private int estado;
-    private int deUsuario_id;
-    private int aUsuario_id;
-    //private Usuario deUsuario;
-    //private Usuario aUsuario;
-    //private Cuenta cuentaDestino;
-    //private Cuenta cuentaOrigen;
-    private int cuentaDestino_id;
-    private int cuentaOrigen_id;
-    
-    
+    @Column(name="de_usuario_id")
+    private int deUsuarioId;
+    @Column(name="a_usuario_id")
+    private int aUsuarioId;
+    // private Usuario deUsuario;
+    // private Usuario aUsuario;
+    // private Cuenta cuentaDestino;
+    // private Cuenta cuentaOrigen;
+    @Column(name="cuenta_destino_id")
+    private int cuentaDestinoId;
+    @Column(name="cuenta_origen_id")
+    private int cuentaOrigenId;
+
     @ManyToOne
-    @JoinColumn(name = "cuentaId", referencedColumnName = "cuentaId")
-    //@MapsId
+    @JoinColumn(name = "cuenta_id", referencedColumnName = "cuenta_id")
+    // @MapsId
     private Cuenta cuenta;
 
     public double getImporte() {
@@ -75,39 +82,27 @@ public class Movimiento {
         this.estado = estado;
     }
 
-    /*public Usuario getDeUsuario() {
-        return deUsuario;
-    }
-
-    public void setDeUsuario(Usuario deUsuario) {
-        this.deUsuario = deUsuario;
-    }
-
-    public Usuario getaUsuario() {
-        return aUsuario;
-    }
-
-    public void setaUsuario(Usuario aUsuario) {
-        this.aUsuario = aUsuario;
-    }
-
-    public Cuenta getCuentaDestino() {
-        return cuentaDestino;
-    }
-
-    public void setCuentaDestino(Cuenta cuentaDestino) {
-        this.cuentaDestino = cuentaDestino;
-    }
-
-    public Cuenta getCuentaOrigen() {
-        return cuentaOrigen;
-    }
-
-    public void setCuentaOrigen(Cuenta cuentaOrigen) {
-        this.cuentaOrigen = cuentaOrigen;
-    }
-
-/**
+    /*
+     * public Usuario getDeUsuario() { return deUsuario; }
+     * 
+     * public void setDeUsuario(Usuario deUsuario) { this.deUsuario = deUsuario; }
+     * 
+     * public Usuario getaUsuario() { return aUsuario; }
+     * 
+     * public void setaUsuario(Usuario aUsuario) { this.aUsuario = aUsuario; }
+     * 
+     * public Cuenta getCuentaDestino() { return cuentaDestino; }
+     * 
+     * public void setCuentaDestino(Cuenta cuentaDestino) { this.cuentaDestino =
+     * cuentaDestino; }
+     * 
+     * public Cuenta getCuentaOrigen() { return cuentaOrigen; }
+     * 
+     * public void setCuentaOrigen(Cuenta cuentaOrigen) { this.cuentaOrigen =
+     * cuentaOrigen; }
+     * 
+     * /**
+     * 
      * @param movimiento the usuario to set
      */
 
@@ -131,38 +126,36 @@ public class Movimiento {
         this.fechaMovimiento = fechaMovimiento;
     }
 
-    public int getDeUsuario_id() {
-        return deUsuario_id;
+    public int getDeUsuarioId() {
+        return deUsuarioId;
     }
 
-    public void setDeUsuario_id(int deUsuario_id) {
-        this.deUsuario_id = deUsuario_id;
+    public void setDeUsuarioId(int deUsuarioId) {
+        this.deUsuarioId = deUsuarioId;
     }
 
-    public int getaUsuario_id() {
-        return aUsuario_id;
+    public int getaUsuarioId() {
+        return aUsuarioId;
     }
 
-    public void setaUsuario_id(int aUsuario_id) {
-        this.aUsuario_id = aUsuario_id;
+    public void setaUsuarioId(int aUsuarioId) {
+        this.aUsuarioId = aUsuarioId;
     }
 
-    public int getCuentaDestino_id() {
-        return cuentaDestino_id;
+    public int getCuentaDestinoId() {
+        return cuentaDestinoId;
     }
 
-    public void setCuentaDestino_id(int cuentaDestino_id) {
-        this.cuentaDestino_id = cuentaDestino_id;
+    public void setCuentaDestinoId(int cuentaDestinoId) {
+        this.cuentaDestinoId = cuentaDestinoId;
     }
 
-    public int getCuentaOrigen_id() {
-        return cuentaOrigen_id;
+    public int getCuentaOrigenId() {
+        return cuentaOrigenId;
     }
 
-    public void setCuentaOrigen_id(int cuentaOrigen_id) {
-        this.cuentaOrigen_id = cuentaOrigen_id;
+    public void setCuentaOrigenId(int cuentaOrigenId) {
+        this.cuentaOrigenId = cuentaOrigenId;
     }
-
-
 
 }

@@ -4,6 +4,9 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 /**
  * Billetera
  */
@@ -12,8 +15,9 @@ import javax.persistence.*;
 public class Billetera {
 
     @Id
+    @Column (name = "billetera_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int billetera_id;
+    private int billeteraId;
     
     
     @OneToOne
@@ -21,7 +25,8 @@ public class Billetera {
     //@MapsId
     private Persona persona;
 
-    @OneToMany(mappedBy = "billetera", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "billetera", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Cuenta> cuentas = new ArrayList<Cuenta>();
 
     public Persona getPersona() {
@@ -46,12 +51,12 @@ public class Billetera {
         this.cuentas.add(cuenta);
     }
 
-    public int getBilletera_id() {
-        return billetera_id;
+    public int getBilleteraId() {
+        return billeteraId;
     }
 
-    public void setBilletera_id(int billetera_id) {
-        this.billetera_id = billetera_id;
+    public void setBilleteraId(int billeteraId) {
+        this.billeteraId = billeteraId;
     }
 
     public void setCuentas(List<Cuenta> cuentas) {

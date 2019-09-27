@@ -4,6 +4,9 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 /**
  * Cuenta
  */
@@ -12,12 +15,13 @@ import javax.persistence.*;
 
 public class Cuenta {
     @Id
-    @Column(name = "cuentaId")
+    @Column(name = "cuenta_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int cuenta_id;
+    private int cuentaId;
 
     private String moneda;
     private double saldo;
+    @Column(name="saldo_disponible")
     private double saldoDisponible;
 
     @ManyToOne
@@ -26,6 +30,7 @@ public class Cuenta {
     private Billetera billetera;
 
     @OneToMany(mappedBy = "cuenta", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Movimiento> movimientos = new ArrayList<Movimiento>();
 
     public String getMoneda() {
@@ -82,12 +87,12 @@ public class Cuenta {
         return billetera;
     }
 
-    public int getCuenta_id() {
-        return cuenta_id;
+    public int getCuentaId() {
+        return cuentaId;
     }
 
-    public void setCuenta_id(int cuenta_id) {
-        this.cuenta_id = cuenta_id;
+    public void setCuentaId(int cuentaId) {
+        this.cuentaId = cuentaId;
     }
 
 }

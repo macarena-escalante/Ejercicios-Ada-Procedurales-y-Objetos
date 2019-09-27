@@ -78,6 +78,7 @@ public class CuentaManager {
         session.close();
     }
 
+    
 
     /**
      * Este metodo en la vida real no debe existir ya qeu puede haber miles de usuarios
